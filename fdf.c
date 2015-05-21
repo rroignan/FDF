@@ -6,7 +6,7 @@
 /*   By: rroignan <rroignan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/16 18:14:44 by rroignan          #+#    #+#             */
-/*   Updated: 2015/05/20 17:25:13 by rroignan         ###   ########.fr       */
+/*   Updated: 2015/05/21 17:30:17 by rroignan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ int		main(int ac, char **av)
 
 	i = 0;
 	j = 0;
-	x = 50;
-	y = 50;
 	if (ac != 2)
 		return (0);
 	e.mlx = mlx_init();
@@ -87,40 +85,36 @@ int		main(int ac, char **av)
 	while (tab[i + 1])
 	{
 		j = 0;
-		x = 50;
+		x = 400 - (i * 30);
+		y = 50 + (i * 30);
 		while (tab[i][j + 1])
 		{
 			if (ft_atoi(tab[i][j]) != 0 && ft_atoi(tab[i][j + 1]) != 0)
-				ft_draw(e.mlx, e.win, x, y + ft_atoi(tab[i][j]), (x + 50), y + ft_atoi(tab[i][j + 1]), 0xFF0000);
+				ft_draw(e.mlx, e.win, x, y - ft_atoi(tab[i][j]), x + 30, y - ft_atoi(tab[i][j + 1]) + 30, 0xFF0000);
 			else
-				ft_draw(e.mlx, e.win, x, y + ft_atoi(tab[i][j]), (x + 50), y + ft_atoi(tab[i][j + 1]), 0x0000FF);
+				ft_draw(e.mlx, e.win, x, y - ft_atoi(tab[i][j]), x + 30, y - ft_atoi(tab[i][j + 1]) + 30, 0x0000FF);
 			if (ft_atoi(tab[i][j]) != 0 && ft_atoi(tab[i + 1][j]) != 0)
-				ft_draw(e.mlx, e.win, x, y + ft_atoi(tab[i][j]), x, (y + 50) + ft_atoi(tab[i + 1][j]), 0xFF0000);
+				ft_draw(e.mlx, e.win, x, y - ft_atoi(tab[i][j]), x - 30, (y + 30) - ft_atoi(tab[i + 1][j]), 0xFF0000);
 			else
-				ft_draw(e.mlx, e.win, x, y + ft_atoi(tab[i][j]), x, (y + 50) + ft_atoi(tab[i + 1][j]), 0x0000FF);
+				ft_draw(e.mlx, e.win, x, y - ft_atoi(tab[i][j]), x - 30, (y + 30) - ft_atoi(tab[i + 1][j]), 0x0000FF);
 			j++;
-			x += 50;
+			x += 30;
+			y += 30;
 		}
-		ft_draw(e.mlx, e.win, x, y + ft_atoi(tab[i][j]), x, (y + 50) + ft_atoi(tab[i + 1][j]), 0x0000FF);
+		ft_draw(e.mlx, e.win, x, y - ft_atoi(tab[i][j]), x - 30, (y + 30) - ft_atoi(tab[i + 1][j]), 0x0000FF);
 		i++;
-		y += 50;
+		//y = y + 50;
 	}
+	x = 400 - (i * 30);
+	y = 50 + (i * 30);
 	j = 0;
-	x = 50;
 	while (tab[i][j + 1])
 	{
-		ft_draw(e.mlx, e.win, x, y + ft_atoi(tab[i][j]), (x + 50), y + ft_atoi(tab[i][j + 1]), 0x0000FF);
+		ft_draw(e.mlx, e.win, x, y - ft_atoi(tab[i][j]), x + 30, y - ft_atoi(tab[i][j + 1]) + 30, 0x0000FF);
 		j++;
-		x += 50;
+		x += 30;
+		y += 30;
 	}
-	/*while (tab[i][j + 1])
-	{
-		if (ft_atoi(tab[i][j]) != 0 && ft_atoi(tab[i][j + 1]) != 0)
-			ft_draw(e.mlx, e.win, j*50 + 10, i*50, (j + 1) + 10, i*50, 0xFF0000);
-		else
-			ft_draw(e.mlx, e.win, j*50 + 10, i*50, (j + 1)*50 + 10, i*50, 0x0000FF);
-		j++;
-	}*/
 	mlx_hook(e.win, KEY_PRESS, KEY_PRESS_MASK, key_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
